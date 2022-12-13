@@ -20,6 +20,11 @@ dotenv.config();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//Swagger
+const swaggerUi = require('swagger-ui-express')
+const apiDocumentation = require('./apidoc.json')
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation))
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

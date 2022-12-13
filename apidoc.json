@@ -1,0 +1,181 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API DOCUMENTATION",
+        "description": "API DOCUMENTATION",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+        "url": "http://localhost:3000",
+        "description": "localhost"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Members"
+        },
+        {
+            "name": "Message",
+            "description": "Message"
+        }
+    ],
+    "paths": {
+        "/users/signup": {
+            "post":{
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User Login",
+                "consumes": "application/json",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Jon Doe"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "jondoe"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Signup Success"
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User Login",
+                "consumes": "application/json",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "jondoe"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Success"
+                    }
+                }
+            }
+        },
+        "/message/addmessage": {
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Post Message",
+                "consumes": "application/json",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "from": {
+                                        "type": "object",
+                                        "example": "6397f98d38c2da49ea3fb0ae"
+                                    },
+                                    "to": {
+                                        "type": "object",
+                                        "example": "63981990fb9a2e39e3d5a4a3"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Hallo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Message Sent"
+                    }
+                }
+            }
+        },
+        "/message/getmessage": {
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Read Messages",
+                "consumes": "application/json",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "from": {
+                                        "type": "string",
+                                        "example": "6397f98d38c2da49ea3fb0ae"
+                                    },
+                                    "to": {
+                                        "type": "string",
+                                        "example": "63981990fb9a2e39e3d5a4a3"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Message",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties":{
+                                        "sender": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
