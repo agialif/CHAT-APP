@@ -1,0 +1,12 @@
+version: '2'
+services:
+  app:
+    container_name: chat-app
+    restart: always
+    build: .
+    ports:
+      - "5000:5000"
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/app/node_modules
