@@ -15,8 +15,8 @@ var indexRouter = require('./routes/index');
 var app = express();
 dotenv.config();
 // view engine setup
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 //Swagger
 const swaggerUi = require('swagger-ui-express')
