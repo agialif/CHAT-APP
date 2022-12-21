@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken")
-var bcrypt = require("bcrypt")
+var bcrypt = require("bcrypt-nodejs")
 var User = require("../model/user")
 
 const login  = (async(req, res) => {
