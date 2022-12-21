@@ -1,6 +1,7 @@
 var jwt = require("jsonwebtoken")
 var bcrypt = require("bcrypt")
 var Supplier = require("../model/supplier")
+const User = require("../model/user")
 
 const login  = (async(req, res) => {
     const supplier = await Supplier.findOne({name: req.body.name})
@@ -61,8 +62,17 @@ const signUp = (async(req, res) => {
 
 })
 
+const supplier_list = (async(req, res) => {
+    Supplier.find()
+    .then((supplier) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type','application/json');
+        res.json(supplier);
+    })
+}) 
 
 module.exports = {
     signUp,
-    login
+    login,
+    supplier_list
 }

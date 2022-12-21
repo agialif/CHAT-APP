@@ -14,8 +14,13 @@
     "tags": [
         {
             "name": "Users",
-            "description": "Members"
+            "description": "Users"
         },
+        {
+            "name": "Supplier",
+            "description": "Supplier"
+        }
+        ,
         {
             "name": "Message",
             "description": "Message"
@@ -92,6 +97,90 @@
                 }
             }
         },
+        "/supplier/signup": {
+            "post":{
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Supplier Login",
+                "consumes": "application/json",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Mitra Jaya"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Jl. Teuku Umar"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Signup Success"
+                    }
+                }
+            }
+        },
+        "/supplier/login": {
+            "post": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Supplier Login",
+                "consumes": "application/json",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "Mitra Jaya"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Success"
+                    }
+                }
+            }
+        },
+        "/supplier/list": {
+            "get": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "List of All Supplier",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },  
         "/message/addmessage": {
             "post": {
                 "tags": [
