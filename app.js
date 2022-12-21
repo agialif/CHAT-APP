@@ -9,10 +9,8 @@ var socket = require("socket.io")
 var mongoose = require("mongoose")
 var userRouter = require("./routes/users")
 var messageRouter = require("./routes/message")
-var server = require("./bin/www")
-
+const supplierRouter = require('./routes/supplier');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 dotenv.config();
@@ -22,7 +20,8 @@ app.set('view engine', 'jade');
 
 //Swagger
 const swaggerUi = require('swagger-ui-express')
-const apiDocumentation = require('./apidoc.json')
+const apiDocumentation = require('./apidoc.json');
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation))
 
 app.use(logger('dev'));
@@ -34,8 +33,9 @@ app.use(cors())
 
 //ROUTE
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', userRouter);
 app.use('/message', messageRouter);
+app.use('/supplier', supplierRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,26 +53,33 @@ connect.then(
     console.log("Connection to Database Unsuccessfull: ", err)
   }
 )
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
 
-const io = socket(server, {
+const io = require("socket.io")(server, {
+  pingTimeout: 1000,
   cors: {
-    origin: "http://localhost:4000",
-    credentials: true
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST"],
   },
-})
+});
 
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
-  socket.on("online-user", (userId) => {
-    onlineUsers.set(userId, socket.id)
-  })
+ console.log(`User Connected: ${socket.id}`);
+socket.on("online-user", (userId) => {
+   onlineUsers.set(userId, socket.id)
+   console.log(userId)
+ })
 
-  socket.on("msg-send", (data)=> {
-    const toUserSocket = onlineUsers.get(data.to);
-    if (toUserSocket) {
-      socket.to(toUserSocket).emit("rcv-msg", data.msg)
-    }
-  })
+ socket.on("msg-send", (data)=> {
+    console.log(data)
+   const toUserSocket = onlineUsers.get(data.to);
+   if (toUserSocket) {
+    socket.to(toUserSocket).emit("rcv-msg", data.msg)
+  }
+ })
 })
 // error handler
 app.use(function(err, req, res, next) {

@@ -1,15 +1,15 @@
 var jwt = require("jsonwebtoken")
 var bcrypt = require("bcrypt")
-var User = require("../model/user")
+var Supplier = require("../model/supplier")
 
 const login  = (async(req, res) => {
-    const user = await User.findOne({username: req.body.username})
-    if (!user) {
-        console.log("Username not found")
-        return res.status(400).json({error: "Username not found"})
+    const supplier = await Supplier.findOne({name: req.body.name})
+    if (!supplier) {
+        console.log("Supplier not found")
+        return res.status(400).json({error: "Supplier not found"})     
     }
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    const validPassword = await bcrypt.compare(req.body.password, supplier.password)
 
     if (!validPassword) {
         console.log("Password is wrong")
@@ -18,8 +18,8 @@ const login  = (async(req, res) => {
 
     const token = jwt.sign(
         {
-            name: user.name,
-            id: user._id,
+            name: supplier.name,
+            id: supplier._id,
         },
         process.env.TOKEN_SECRET_USER,
         {
@@ -29,7 +29,7 @@ const login  = (async(req, res) => {
     res.cookie("authCookie", token, {maxAge: 9000000, httpOnly: true}).json(
         {
             error: null,
-            id: user.id,
+            id: supplier.id,
             data: {
                 token
             }
@@ -38,22 +38,22 @@ const login  = (async(req, res) => {
 })
 
 const signUp = (async(req, res) => {
-    const userExist = await User.findOne({username: req.body.username})
-    if (userExist) {
-        console.log("Username already exist")
-        return res.status(400).json({error: "Username already exist"})
+    const supplierExist = await Supplier.findOne({username: req.body.name})
+    if (supplierExist) {
+        console.log("Supplier already exist")
+        return res.status(400).json({error: "Supplier already exist"})
     }
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt)
 
-    const user = new User({
-        username: req.body.username,
+    const supplier = new Supplier({
         name: req.body.name,
+        address: req.body.address,
         password: hashPassword
     })
     try{
-        const saveuser = await user.save();
-        res.send(saveuser)
+        const savesupplier = await supplier.save();
+        res.send(savesupplier)
     }
     catch (err) {
         res.status(400).send(err)
