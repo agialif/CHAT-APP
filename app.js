@@ -76,10 +76,12 @@ io.on("connection", (socket) => {
 
  socket.on("msg-send", (data)=> {
    const toUserSocket = onlineUsers.get(data.to);
+   console.log("Message Sent")
    console.log(data)
    if (toUserSocket) {
     socket.to(toUserSocket).emit("rcv-msg", data.message)
-    console.log(data.message)
+    console.log("Message Received")
+    console.log(data)
   }
  })
 })
