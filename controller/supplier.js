@@ -39,7 +39,7 @@ const login  = (async(req, res) => {
 })
 
 const signUp = (async(req, res) => {
-    const supplierExist = await Supplier.findOne({username: req.body.name})
+    const supplierExist = await Supplier.findOne({name: req.body.name})
     if (supplierExist) {
         console.log("Supplier already exist")
         return res.status(400).json({error: "Supplier already exist"})
