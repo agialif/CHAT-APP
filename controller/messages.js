@@ -28,7 +28,7 @@ const getMessage = (async(req, res) => {
 
         const storedMessages = messages.map((msg) => {
             return{
-                //fromSelf: msg.sender.toString() == from,
+                to: to,
                 sender: from,
                 message: msg.message.text
             }
