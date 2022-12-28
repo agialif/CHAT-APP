@@ -67,17 +67,19 @@ const io = require("socket.io")(server, {
 
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
- console.log(`User Connected: ${socket.id}`);
-socket.on("online-user", (userId) => {
+   console.log(`User Connected: ${socket.id}`);
+   socket.on("online-user", (userId) => {
+   //const Id = JSON.stringify(userId).split(":").join(",").split('"')  
    onlineUsers.set(userId, socket.id)
-   console.log(userId)
+   console.log(onlineUsers)
  })
 
  socket.on("msg-send", (data)=> {
-    console.log(data)
    const toUserSocket = onlineUsers.get(data.to);
+   console.log(data)
    if (toUserSocket) {
-    socket.to(toUserSocket).emit("rcv-msg", data.msg)
+    socket.to(toUserSocket).emit("rcv-msg", data.message)
+    console.log(data.message)
   }
  })
 })

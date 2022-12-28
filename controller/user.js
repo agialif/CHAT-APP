@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken")
-var bcrypt = require("bcrypt-nodejs")
+var bcrypt = require("bcrypt")
 var User = require("../model/user")
 
 const login  = (async(req, res) => {
@@ -15,7 +15,7 @@ const login  = (async(req, res) => {
         console.log("Password is wrong")
         return res.status(400).json({error: "Password is wrong"})
     }
-
+    
     const token = jwt.sign(
         {
             name: user.name,
@@ -61,8 +61,17 @@ const signUp = (async(req, res) => {
 
 })
 
+const user_list = (async(req, res) => {
+    User.find()
+    .then((user) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type','application/json');
+        res.json(user);
+    })
+}) 
 
 module.exports = {
     signUp,
-    login
+    login,
+    user_list
 }

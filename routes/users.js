@@ -1,7 +1,8 @@
 var express = require('express');
 var {
   login,
-  signUp
+  signUp,
+  user_list
 } = require("../controller/user")
 var userRouter = express.Router();
 
@@ -10,5 +11,8 @@ userRouter.route("/login")
 
 userRouter.route("/signup")
 .post(signUp)
+
+userRouter.route("/list")
+.get(user_list)
 
 module.exports = userRouter;

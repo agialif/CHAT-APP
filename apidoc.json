@@ -97,6 +97,20 @@
                 }
             }
         },
+        "/users/list": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List of All Users",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/supplier/signup": {
             "post":{
                 "tags": [

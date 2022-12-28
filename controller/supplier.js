@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken")
-var bcrypt = require("bcrypt-nodejs")
+var bcrypt = require("bcrypt")
 var Supplier = require("../model/supplier")
 const User = require("../model/user")
 
