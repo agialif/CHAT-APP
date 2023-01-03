@@ -210,11 +210,11 @@
                                 "properties": {
                                     "from": {
                                         "type": "object",
-                                        "example": "6397f98d38c2da49ea3fb0ae"
+                                        "example": "63981990fb9a2e39e3d5a4a3"
                                     },
                                     "to": {
                                         "type": "object",
-                                        "example": "63981990fb9a2e39e3d5a4a3"
+                                        "example": "63b278c555621655459f1cc1"
                                     },
                                     "message": {
                                         "type": "string",
@@ -245,14 +245,11 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "from": {
+                                    "roomId": {
                                         "type": "string",
-                                        "example": "6397f98d38c2da49ea3fb0ae"
-                                    },
-                                    "to": {
-                                        "type": "string",
-                                        "example": "63981990fb9a2e39e3d5a4a3"
+                                        "example": "63b278c555621655459f1cc163981990fb9a2e39e3d5a4a3"
                                     }
+                                    
                                 }
                             }
                         }

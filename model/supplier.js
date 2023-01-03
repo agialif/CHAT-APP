@@ -13,6 +13,10 @@ var supplierSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    userType: {
+        type: Number,
+        default: 1
     }
 })
 
